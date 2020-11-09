@@ -1,43 +1,42 @@
 import turtle
-from turtle import Turtle as t, Screen
+from turtle import Turtle, Screen
 import random as rand
 
-screen = Screen()
 turtle.colormode(255)
-directions = [0, 90, 180, 270]
-run_time = 100
+screen = Screen()
+columns = 10
+rows = 10
+loc_x = 0
+loc_y = 0
+dir = -1
+color_list = [(45, 95, 143), (213, 214, 205), (126, 159, 205), (221, 225, 223), (169, 78, 26), (168, 189, 219), (187, 150, 163), (202, 165, 34), (18, 58, 82)]
 
-
-class Player:
+class Painter():
     def __init__(self):
-        self.id = t()
-        player = self.id
-        player.width(4)
-        player.speed(1)
-
-    def move(self):
-        player = self.id
-        player.forward(25)
-        player.color(rand_color())
-        player.setheading(rand.choice(directions))
+        self.id = Turtle()
+        paint = self.id
+        paint.color(color_list[0])
+        paint.hideturtle()
 
 
+painter = Painter()
+painter.id.penup()
 
-def rand_color():
-    r = rand.randint(0, 255)
-    b = rand.randint(0, 255)
-    g = rand.randint(0, 255)
 
-    colors = (r, b, g)
+for row in range(rows):
 
-    return colors
+    for col in range(columns):
+        painter.id.dot(15, color_list[rand.randint(0, len(color_list)-1)])
+        loc_x += 30 * dir
+        painter.id.setx(loc_x)
 
-Tammy = Player()
-
-while run_time > 0:
-    Tammy.move()
-    run_time -= 1
+    if dir == -1:
+        dir = 1
+    else:
+        dir = -1
+    painter.id.dot(15, color_list[rand.randint(0, len(color_list)-1)])
+    loc_y -= 30
+    painter.id.sety(loc_y)
 
 
 screen.exitonclick()
-
